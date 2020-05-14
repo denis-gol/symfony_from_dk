@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h1>Test page</h1>
+    <p>This is my first task</p>
+    <p>{{ date }}</p>
+
+    <ul>
+        {% for item in 1..count %}
+            <li>{{ date }}</li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}
