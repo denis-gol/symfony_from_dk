@@ -35,18 +35,17 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/{user}", name="item", methods={"GET"})
+     * @Route("/{id}", name="item", methods={"GET"})
      * @param User $user в запросе должен быть user_id
      * @param UserRepository $userRepository
      * @return Response
      */
-    public function showUserPage(User $user, UserRepository $userRepository)
+    public function showUserPage(User $id, UserRepository $userRepository)
     {
         return $this->render(
             'user/user.twig',
             [
-                'user' => $user,
-                'urlNameList' => $this->generateUrl('user_list'),
+                'user' => $id,
             ]
         );
     }
