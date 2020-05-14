@@ -7,6 +7,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -19,7 +20,7 @@ class UserController extends AbstractController
     /**
      * @Route("/list", name="list", methods={"GET"})
      * @param UserRepository $userRepository
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function list(UserRepository $userRepository)
     {
@@ -35,9 +36,9 @@ class UserController extends AbstractController
 
     /**
      * @Route("/{user}", name="item", methods={"GET"})
-     * @param int $user в запросе должен быть user_id
+     * @param User $user в запросе должен быть user_id
      * @param UserRepository $userRepository
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function showUserPage(User $user, UserRepository $userRepository)
     {
