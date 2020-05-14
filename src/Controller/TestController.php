@@ -34,11 +34,8 @@ class TestController extends AbstractController
     }
 
     /**
-     * @Route(
-     *     "/test/{count}",
-     *     name="showDatesList",
-     *     methods={"GET"}
-     * )
+     * Выводит список дат.
+     *
      * @param int $count
      * @return \Symfony\Component\HttpFoundation\Response
      */

@@ -1,3 +1,8 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+
+showDatesList:
+    path: /test/{count}
+    controller: App\Controller\TestController::showDatesList
+    methods: GET
