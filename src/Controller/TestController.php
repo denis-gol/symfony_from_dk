@@ -6,6 +6,10 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Range;
+use Symfony\Component\Validator\Constraints\Type;
+use Symfony\Component\Validator\Validation;
 
 class TestController extends AbstractController
 {
@@ -42,13 +46,19 @@ class TestController extends AbstractController
     {
         $date = date('d.m.Y');
 
-        $validator = $this->get('validator');
-        $errors = $validator->validate($count);
+
+        $validator = Validation::createValidator();
+        $errors = $validator->validate(
+            $count,
+            [
+                new Type('integer'),
+                new Range(['min' => 1, 'max' => 100]),
+                new NotBlank(),
+            ]
+        );
 
         if (count($errors) > 0) {
-            return $this->render('test/errors.twig', array(
-                'errors' => $errors,
-            ));
+            throw $this->createNotFoundException('');
         }
 
         return $this->render(
@@ -56,7 +66,6 @@ class TestController extends AbstractController
             [
                 'date' => $date,
                 'count' => $count,
-                'errors' => $errors,
             ]
         );
     }
