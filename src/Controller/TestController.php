@@ -35,23 +35,22 @@ class TestController extends AbstractController
 
     /**
      * @Route(
-     *     "/tests/{count}",
-     *     name="showDateList",
+     *     "/test/{count}",
+     *     name="showDatesList",
      *     methods={"GET"}
      * )
      * @param int $count
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showDateList(int $count)
+    public function showDatesList(int $count)
     {
         $date = date('d.m.Y');
-
 
         $validator = Validation::createValidator();
         $errors = $validator->validate(
             $count,
             [
-                new Type('integer'),
+                new Type('int'),
                 new Range(['min' => 1, 'max' => 100]),
                 new NotBlank(),
             ]
