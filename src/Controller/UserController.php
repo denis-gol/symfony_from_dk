@@ -46,6 +46,7 @@ class UserController extends AbstractController
             'user/user.twig',
             [
                 'user' => $user,
+                'urlNameList' => $this->generateUrl('user_list'),
             ]
         );
     }

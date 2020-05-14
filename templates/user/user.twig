@@ -6,5 +6,6 @@
 
     <p>Логин: {{ user.email }}</p>
     <p>Дата создания: {{ user.createdAt|date("d-m-Y H:i:s", "Europe/Moscow") }}</p>
+    <a href="{{ urlNameList }}">Вернуться к списку пользователей</a>
 
 {% endblock %}
