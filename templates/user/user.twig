@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h1>Страница пользователя</h1>
+
+    <p>Логин: {{ user.email }}</p>
+    <p>Дата создания: {{ user.createdAt|date("d-m-Y H:i:s", "Europe/Moscow") }}</p>
+
+{% endblock %}

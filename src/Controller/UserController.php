@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -28,6 +29,22 @@ class UserController extends AbstractController
             'user/list.twig',
             [
                 'users' => $users,
+            ]
+        );
+    }
+
+    /**
+     * @Route("/{user}", name="item", methods={"GET"})
+     * @param int $user в запросе должен быть user_id
+     * @param UserRepository $userRepository
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function showUserPage(User $user, UserRepository $userRepository)
+    {
+        return $this->render(
+            'user/user.twig',
+            [
+                'user' => $user,
             ]
         );
     }
