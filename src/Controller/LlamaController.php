@@ -85,6 +85,12 @@ class LlamaController extends AbstractController
      */
     public function edit(Request $request, Llama $llama): Response
     {
+
+        // проверяем права доступа
+        if ($this->getUser()->getId() !== $llama->getOwner()->getId()) {
+            throw $this->createAccessDeniedException('You can edit only your llamas');
+        }
+
         $form = $this->createForm(LlamaType::class, $llama);
         $form->handleRequest($request);
 
