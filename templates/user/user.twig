@@ -10,4 +10,11 @@
     <p>Дата создания: {{ user.createdAt|date("d-m-Y H:i:s", "Europe/Moscow") }}</p>
     <a href="{{ path('user_list') }}">Вернуться к списку пользователей</a>
 
+        <p>Список лам пользователя:</p>
+        <ol>
+            {% for llama in user.llamas %}
+                <li>Name: {{ llama.name }}, height: {{ llama.height }}</li>
+            {% endfor %}
+        </ol>
+
 {% endblock %}

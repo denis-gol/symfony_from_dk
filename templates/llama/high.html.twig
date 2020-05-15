@@ -1,0 +1,15 @@
+{% extends 'newbase_template/newbase.html.twig' %}
+
+{% block title %}Список высоких лам{% endblock %}
+
+{% block content %}
+
+    <h1>Список высоких лам</h1>
+
+    <ol>
+        {% for llama in llamas %}
+            <li>Name: {{ llama.name }}, height: {{ llama.height }}</li>
+        {% endfor %}
+    </ol>
+
+{% endblock %}

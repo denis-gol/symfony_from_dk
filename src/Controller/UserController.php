@@ -36,12 +36,19 @@ class UserController extends AbstractController
 
     /**
      * @Route("/{id}", name="item", methods={"GET"})
-     * @param User $user в запросе должен быть user_id
+     * @param User $id в запросе должен быть user_id
      * @param UserRepository $userRepository
      * @return Response
      */
     public function showUserPage(User $id, UserRepository $userRepository)
     {
+        /** @var User $currentUser */
+        $currentUser = $this->getUser();
+
+        if (empty($currentUser) || $currentUser->getId() !== $id->getId()) {
+            throw $this->createAccessDeniedException('Wrong user!');
+        }
+
         return $this->render(
             'user/user.twig',
             [
