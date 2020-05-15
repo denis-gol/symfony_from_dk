@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Llama;
+use App\Entity\User;
 use App\Form\LlamaType;
 use App\Repository\LlamaRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -33,6 +34,11 @@ class LlamaController extends AbstractController
     public function new(Request $request): Response
     {
         $llama = new Llama();
+
+        /** @var User $currentUser */
+        $currentUser = $this->getUser();
+        $llama->setOwner($currentUser);
+
         $form = $this->createForm(LlamaType::class, $llama);
         $form->handleRequest($request);
 

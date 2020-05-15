@@ -14,7 +14,6 @@ class LlamaType extends AbstractType
         $builder
             ->add('name')
             ->add('height')
-            ->add('owner')
         ;
     }
 
