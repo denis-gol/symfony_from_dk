@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Llama;
 use App\Form\LlamaType;
 use App\Repository\LlamaRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,6 +28,7 @@ class LlamaController extends AbstractController
 
     /**
      * @Route("/new", name="llama_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_USER")
      */
     public function new(Request $request): Response
     {
@@ -60,6 +62,7 @@ class LlamaController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="llama_edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_USER")
      */
     public function edit(Request $request, Llama $llama): Response
     {
@@ -80,6 +83,7 @@ class LlamaController extends AbstractController
 
     /**
      * @Route("/{id}", name="llama_delete", methods={"DELETE"})
+     * @IsGranted("ROLE_USER")
      */
     public function delete(Request $request, Llama $llama): Response
     {
