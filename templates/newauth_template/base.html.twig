@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>{% block title %}Title{% endblock %}</title>
+    <title>{% block title %}{% endblock %}</title>
     {% block stylesheets %}{% endblock %}
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,10 +19,8 @@
 <body>
 
 {# топовый заголовок страницы #}
-<div class="container text-center">
-    {% block new_header %}
-        <h1>Проект "А"</h1>
-    {% endblock %}
+<div class="container text-center mt-3 mb-3">
+    {% block new_header %}<h1>Проект "А"</h1>{% endblock %}
 </div>
 
 {# навигация #}
@@ -32,11 +30,6 @@
 
 <div class="container" style="margin-top:30px">
     <div class="row">
-
-        {# левое меню #}
-        <div class="col-sm-4">
-            {{ include ('newbase_template/leftmenu.html.twig') }}
-        </div>
 
         {# контент страницы #}
         <div class="col-sm-8">

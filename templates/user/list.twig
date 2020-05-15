@@ -1,12 +1,14 @@
-{% extends 'base.html.twig' %}
+{% extends 'newbase_template/newbase.html.twig' %}
 
-{% block body %}
+{% block title %}Список пользователей{% endblock %}
+
+{% block content %}
 
     <h1>Список пользователей</h1>
 
     <ul>
         {% for user in users %}
-            <li>{{ user.email }}</li>
+            <li>{{ user.email }} <a href="{{ path('user_item', {id: user.id}) }}">Перейти</a></li>
         {% endfor %}
 
     </ul>

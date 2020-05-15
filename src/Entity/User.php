@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -37,6 +39,21 @@ class User implements UserInterface
      * @ORM\Column(type="string")
      */
     private $password;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Llama::class, mappedBy="owner", orphanRemoval=true)
+     */
+    private $llamas;
+
+    public function __construct()
+    {
+        $this->llamas = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -114,5 +131,54 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Llama[]
+     */
+    public function getLlamas(): Collection
+    {
+        return $this->llamas;
+    }
+
+    public function addLlama(Llama $llama): self
+    {
+        if (!$this->llamas->contains($llama)) {
+            $this->llamas[] = $llama;
+            $llama->setOwner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLlama(Llama $llama): self
+    {
+        if ($this->llamas->contains($llama)) {
+            $this->llamas->removeElement($llama);
+            // set the owning side to null (unless already changed)
+            if ($llama->getOwner() === $this) {
+                $llama->setOwner(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        // TODO: Implement __toString() method.
+        return $this->getId() . ': ' . $this->getEmail();
     }
 }
