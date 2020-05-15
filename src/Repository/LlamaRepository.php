@@ -49,4 +49,15 @@ class LlamaRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function getAllHighLlamas($height)
+    {
+        return $this->createQueryBuilder('l')
+            ->andWhere('l.height > :val')
+            ->setParameter('val', $height)
+            ->orderBy('l.id', 'ASC')
+            ->getQuery()
+            ->getResult();
+
+    }
 }

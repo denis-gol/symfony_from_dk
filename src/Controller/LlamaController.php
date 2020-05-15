@@ -51,6 +51,25 @@ class LlamaController extends AbstractController
     }
 
     /**
+     * @Route("/high", name="llama_high", methods={"GET"})
+     * @param LlamaRepository $llamaRepository
+     * @return Response
+     */
+    public function highestLlamas(LlamaRepository $llamaRepository)
+    {
+        $minimumRequireHeight = 150;
+
+        $llamasList = $llamaRepository->getAllHighLlamas($minimumRequireHeight);
+
+        return $this->render(
+            'llama/high.html.twig',
+            [
+                'llamas' => $llamasList,
+            ]
+        );
+    }
+
+    /**
      * @Route("/{id}", name="llama_show", methods={"GET"})
      */
     public function show(Llama $llama): Response
