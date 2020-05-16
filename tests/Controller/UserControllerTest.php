@@ -10,12 +10,15 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class UserControllerTest extends WebTestCase
 {
+    /**
+     * Test NonAuthorized Access
+     */
     public function testListGuest()
     {
         $client = static::createClient();
         $client->request(
             'GET',
-            '/user/list' // роут, а не именованный роут!
+            '/user/list'
         );
 
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
@@ -27,6 +30,9 @@ class UserControllerTest extends WebTestCase
 //        );
     }
 
+    /**
+     * Test NonAuthorized Access
+     */
     public function testShowUserPageGuest()
     {
         $client = static::createClient();
@@ -36,7 +42,7 @@ class UserControllerTest extends WebTestCase
         $userRepository = self::$container->get(UserRepository::class);
         $user = $userRepository->findOneBy([]);
 
-        $client->request(
+        $crawler = $client->request(
             'GET',
             '/user/' . $user->getId(), // роут, а не именованный роут!
         );
@@ -44,6 +50,9 @@ class UserControllerTest extends WebTestCase
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
     }
 
+    /**
+     * Test Authorized Access
+     */
     public function testListAuthorized()
     {
         $client = static::createClient([], [
@@ -57,6 +66,54 @@ class UserControllerTest extends WebTestCase
         );
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
+
+    }
+
+    /**
+     * Test Authorized Access
+     */
+    public function testUserAuthorized()
+    {
+        $client = static::createClient([], [
+            'PHP_AUTH_USER' => 'user-1@localhost',
+            'PHP_AUTH_PW' => AppFixtures::DEFAULT_PASSWORD,
+        ]);
+
+        // грузим ядро
+        self::bootKernel();
+        $userRepository = self::$container->get(UserRepository::class);
+        $user = $userRepository->findOneBy([]);
+
+        $client->request(
+            'GET',
+            '/user/' . $user->getId(), // роут, а не именованный роут!
+        );
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+
+    }
+
+    /**
+     * Test Wrong Authorized Access
+     */
+    public function testUserWrongAuthorized()
+    {
+        $client = static::createClient([], [
+            'PHP_AUTH_USER' => 'user-1@localhost',
+            'PHP_AUTH_PW' => AppFixtures::DEFAULT_PASSWORD,
+        ]);
+
+        // грузим ядро
+        self::bootKernel();
+        $userRepository = self::$container->get(UserRepository::class);
+        $user = $userRepository->findOneBy([]);
+
+        $client->request(
+            'GET',
+            '/user/' . ($user->getId() + 1), // роут, а не именованный роут!
+        );
+
+        $this->assertEquals(403, $client->getResponse()->getStatusCode());
 
     }
 }

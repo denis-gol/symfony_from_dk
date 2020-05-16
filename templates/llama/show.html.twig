@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Llama{% endblock %}
+{% block title %}Страница ламы{% endblock %}
 
 {% block body %}
-    <h1>Llama</h1>
+    <h1>Страница ламы</h1>
 
     <table class="table">
         <tbody>
@@ -22,9 +22,9 @@
         </tbody>
     </table>
 
-    <a href="{{ path('llama_index') }}">back to list</a>
+    <a href="{{ path('llama_index') }}">Вернуться к списку</a>
 
-    <a href="{{ path('llama_edit', {'id': llama.id}) }}">edit</a>
+    <a href="{{ path('llama_edit', {'id': llama.id}) }}">Редактировать</a>
 
     {{ include('llama/_delete_form.html.twig') }}
 {% endblock %}

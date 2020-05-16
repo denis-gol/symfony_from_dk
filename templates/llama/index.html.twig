@@ -1,17 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Llama index{% endblock %}
+{% block title %}Список лам{% endblock %}
 
 {% block body %}
-    <h1>Llama index</h1>
+    <h1>Список лам</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Height</th>
-                <th>actions</th>
+                <th>Номер</th>
+                <th>Имя</th>
+                <th>Высота</th>
+                <th>Действия</th>
             </tr>
         </thead>
         <tbody>
@@ -21,17 +21,17 @@
                 <td>{{ llama.name }}</td>
                 <td>{{ llama.height }}</td>
                 <td>
-                    <a href="{{ path('llama_show', {'id': llama.id}) }}">show</a>
-                    <a href="{{ path('llama_edit', {'id': llama.id}) }}">edit</a>
+                    <a href="{{ path('llama_show', {'id': llama.id}) }}">Показать</a>
+                    <a href="{{ path('llama_edit', {'id': llama.id}) }}">Редактировать</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">no records found</td>
+                <td colspan="4">Не найдено записей</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('llama_new') }}">Create new</a>
+    <a href="{{ path('llama_new') }}">Создать ламу</a>
 {% endblock %}
