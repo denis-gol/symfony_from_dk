@@ -11,6 +11,7 @@ class UserRepositoryTest extends WebTestCase
 
     public function testUpgradePassword()
     {
+        // ошибка в методе репозитория при установке нового пароля
         $this->markTestIncomplete();
     }
 }
