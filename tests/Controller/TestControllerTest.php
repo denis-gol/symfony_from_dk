@@ -27,7 +27,7 @@ class TestControllerTest extends WebTestCase
                 ->text()
         );
 
-        $this->assertContains(
+        $this->assertStringContainsString(
             date('d.m.Y'),
             $client->getResponse()->getContent()
         );
